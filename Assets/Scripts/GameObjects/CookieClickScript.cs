@@ -1,5 +1,7 @@
 using System;
+using Animations;
 using Managers;
+using Particles;
 using UnityEngine;
 
 namespace GameObjects
@@ -10,7 +12,7 @@ namespace GameObjects
         public static CookieClickScript Instance { get; private set; }
 
         // Vars
-        bool touchedLastFrame = false;
+        bool touchedLastFrame;
 
         private void Awake()
         {
@@ -40,8 +42,10 @@ namespace GameObjects
             else if (!touchedLastFrame && Input.touchCount > 0)
             {
                 touchedLastFrame = true;
-                
+            
+                // Methods
                 ScoreManagerScript.Instance.AddCookieScore();
+                CookieAnimationsScript.Instance.CookieShake();
             }
         }
     }
