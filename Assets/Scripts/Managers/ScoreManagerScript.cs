@@ -41,8 +41,8 @@ namespace Managers
             if (cookieScore >= 10)
             {
                 Debug.Log("Quit!");
+                Application.Quit();
                 _sendAndroidDataScript.LaunchAppMessage();
-                // Application.Quit();
             }
         }
     }
