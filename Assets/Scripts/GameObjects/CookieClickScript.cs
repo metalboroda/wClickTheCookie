@@ -1,52 +1,41 @@
-using System;
-using Animations;
+using Animations.GameObjects;
+using Audio;
 using Managers;
 using Particles;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameObjects
 {
     public class CookieClickScript : MonoBehaviour
     {
-        // Singleton
-        public static CookieClickScript Instance { get; private set; }
+        // Call classes
+        [FormerlySerializedAs("_randomSfxScript")]
+        public RandomSfxScript randomSfxScript;
 
-        // Vars
-        bool touchedLastFrame;
+        [FormerlySerializedAs("_cookieParticlesScript")]
+        public CookieParticlesScript cookieParticlesScript;
 
-        private void Awake()
+        private void OnCollisionEnter2D()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-
-            //
+            OnMouseDown();
         }
 
-        private void Update()
+        private void OnMouseDown()
         {
-            OnCookieClick();
-        }
+            if (!Input.GetMouseButtonDown(0)) return;
+            if (Camera.main is null) return;
+            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-        private void OnCookieClick()
-        {
-            if (touchedLastFrame && Input.touchCount == 0)
-            {
-                touchedLastFrame = false;
-            }
-            else if (!touchedLastFrame && Input.touchCount > 0)
-            {
-                touchedLastFrame = true;
-            
-                // Methods
-                ScoreManagerScript.Instance.AddCookieScore();
-                CookieAnimationsScript.Instance.CookieShake();
-            }
+            var hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+            if (hit.collider == null) return;
+            // Debug.Log("Click");
+            // Call methods
+            CookieAnimationsScript.Instance.CookieShake();
+            randomSfxScript.PlayRandomSound();
+            ScoreManagerScript.Instance.AddCookieScore();
+            cookieParticlesScript.StartParticles();
         }
     }
 }

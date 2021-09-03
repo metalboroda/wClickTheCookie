@@ -1,7 +1,9 @@
+using Animations.UI;
 using DG.Tweening;
+using Managers;
 using UnityEngine;
 
-namespace Animations
+namespace Animations.GameObjects
 {
     public class CookieAnimationsScript : MonoBehaviour
     {
@@ -25,13 +27,13 @@ namespace Animations
             {
                 Destroy(gameObject);
             }
-
-            //
         }
 
         public void CookieShake()
         {
-            transform.DOShakeScale(duration, strength, vibrato, randomness, fadeOut);
+            transform.DORewind();
+            transform.DOShakeScale(duration, strength, vibrato, randomness, fadeOut)
+                .OnStepComplete(ScoreCountTextAnimationsScript.Instance.ScoreCountTextShake);
         }
     }
 }

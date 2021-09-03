@@ -26,12 +26,11 @@ namespace Animations.UI
             {
                 Destroy(gameObject);
             }
-
-            //
         }
 
         public void ScoreCountTextShake()
         {
+            transform.DORewind();
             transform.DOShakePosition(duration, strength, vibrato, randomness, snapping, fadeOut);
         }
     }

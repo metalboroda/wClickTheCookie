@@ -1,14 +1,11 @@
-using AndroidData;
-using Animations.UI;
-using UI;
 using UnityEngine;
 
 namespace Managers
 {
     public class ScoreManagerScript : MonoBehaviour
     {
-        SendAndroidDataScript _sendAndroidDataScript = new SendAndroidDataScript();
-        
+        // SendAndroidDataScript _sendAndroidDataScript = new SendAndroidDataScript();
+
         // Singleton
         public static ScoreManagerScript Instance { get; private set; }
 
@@ -25,18 +22,21 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
+        }
 
-            //
+        private void Start()
+        {
+            cookieScore = PlayerPrefs.GetInt("Score");
         }
 
         public void AddCookieScore()
         {
             cookieScore += 1;
 
-            OnSomeScoreQuitGame();
+            // OnSomeScoreQuitGame();
         }
 
-        public void OnSomeScoreQuitGame()
+        /*private void OnSomeScoreQuitGame()
         {
             if (cookieScore >= 10)
             {
@@ -44,6 +44,16 @@ namespace Managers
                 Application.Quit();
                 _sendAndroidDataScript.LaunchAppMessage();
             }
+        }*/
+
+        public void ResetCookieScore()
+        {
+            cookieScore = 0;
+        }
+
+        private void OnDestroy()
+        {
+            PlayerPrefs.SetInt("Score", cookieScore);
         }
     }
 }

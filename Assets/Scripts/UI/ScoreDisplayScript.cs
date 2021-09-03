@@ -7,7 +7,7 @@ namespace UI
     public class ScoreDisplayScript : MonoBehaviour
     {
         // Singleton
-        public static ScoreDisplayScript Instance { get; private set; }
+        private static ScoreDisplayScript Instance { get; set; }
 
         // Objects
         public Text scoreCountText;
@@ -22,8 +22,6 @@ namespace UI
             {
                 Destroy(gameObject);
             }
-
-            //
         }
 
         private void Update()

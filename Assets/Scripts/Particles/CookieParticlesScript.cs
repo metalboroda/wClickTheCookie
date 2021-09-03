@@ -4,31 +4,13 @@ namespace Particles
 {
     public class CookieParticlesScript : MonoBehaviour
     {
-        // Singleton
-        public static CookieParticlesScript Instance { get; private set; }
+        public ParticleSystem particles;
 
-        // Objects
-        public GameObject cookieParticles;
-
-        private void Awake()
+        public void StartParticles()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                // Destroy(gameObject);
-            }
-
-            //
-        }
-
-        public void SpawnCookieParticles()
-        {
-            Instantiate(cookieParticles, transform.position, Quaternion.identity);
-
-            Destroy(cookieParticles, 2f);
+            var ps = Instantiate(particles, Vector3.zero, Quaternion.identity);
+            ps.Play();
+            Destroy(ps.gameObject, 1.2f);
         }
     }
 }

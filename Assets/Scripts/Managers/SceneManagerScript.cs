@@ -18,8 +18,6 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
-
-            //
         }
     }
 }

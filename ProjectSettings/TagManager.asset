@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 444061853
+    locked: 0
+  - name: UI
+    uniqueID: 137696709
+    locked: 0
   - name: Cookie
     uniqueID: 2193209837
     locked: 0
